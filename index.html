@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="icon" href="assets/img/fav.png" type="image/png">
+      <title>Games Arena</title>
+      <link rel="stylesheet" href="assets/css/bootstrap.css" />
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <link href="assets/css/style.css" rel="stylesheet">
+   </head>
+   <body>
+      <div id="preloader">
+	  <!-- Preloader Content -->
+         <div>
+            <noscript style="width: 100%;height: 100%;position: absolute;top: 63%;text-align: center;color: white;">Please enable JavaScript to run the Web App.</noscript>
+         </div>
+      </div>
+      <div id="header" class="jumbotron jumbotron-fluid center">
+	  <!-- header Content: contains logo and search box-->
+         <div class="container">
+            <div>
+			<!--Logo -->
+               <img src="assets/img/logo.png" alt="Games Arena" style="max-height: 125px">
+            </div>
+			<!--Searchbox Section-->
+            <div style="margin: 5% 0"  onFocusOut="setTimeout(function(){$('#autoSuggest').slideUp();}, 150);" >
+               <div class="col-sm-6 offset-sm-3">
+                  <div class="input-group mb-3 searchBox searchSuggest" style="z-index: 2;">
+                     <div class="input-group-prepend w-100" style="padding: 1.5em 0;">
+                        <div class="w-100" id="autoSuggest" style="display:none">
+                           <!--<li onclick="document.getElementById('inputSearch').value=this.textContent">1</li>-->									
+                        </div>
+                     </div>
+                  </div>
+                  <div class="input-group mb-3 searchBox" style="z-index: 3">
+                     <div class="input-group-prepend">
+					 <!-- For genre-->
+                        <select style="margin-bottom:0px !important;max-width: 5em;background-color: rgba(0,0,0,0);border:none;border-bottom-left-radius: 25px ;border-top-left-radius: 25px;outline:none;" class="custom-select custom-select-lg mb-3" id="genreInp">
+                           <option selected="" value="">All</option>
+                           <option>Action</option>
+                           <option>Adventure</option>
+                           <option>Battle</option>
+                           <option>Board</option>
+                           <option>Casino</option>
+                           <option>Compilation</option>
+                           <option>Editor</option>
+                           <option>Fighting</option>
+                           <option>Flight</option>
+                           <option>Hunting</option>
+                           <option>Music</option>
+                           <option>Other</option>
+                           <option>Party</option>
+                           <option>Pinball</option>
+                           <option>Platformer</option>
+                           <option>Productivity</option>
+                           <option>Puzzle</option>
+                           <option>Racing</option>
+                           <option>RPG</option>
+                           <option>Shooter</option>
+                           <option>Simulation</option>
+                           <option>Sports</option>
+                           <option>Strategy</option>
+                           <option>Trivia</option>
+                           <option>Virtual Pet</option>
+                           <option>Word Game</option>
+                           <option>Wrestling</option>
+                        </select>
+                     </div>
+                     <input type="search" class="form-control" autoComplete="off" id="inputSearch" placeholder="Search" style="font-size:125%;box-shadow:none;padding:0 10px;border:none; outline:none;" class="" aria-label="Search Games by name" onKeyUp="searchSuggest(this.value,'-1');">
+                     <div class="input-group-append">
+                        <i class="fa fa-search" style="font-size:22px;cursor:pointer;padding: 0.58em 5px;" onclick="searchSuggest(document.getElementById('inputSearch').value);setTimeout(function(){gameDisplayer(0,searchArray)}, 50);smoothScroll('bodyContainer');"></i>
+                     </div>
+                     <div class="input-group-append">
+					 <!-- for Platform -->
+                        <select style="height:100%;max-width: 5em;margin: 0px !important;background-color: rgba(0,0,0,0);border:none;border-bottom-right-radius: 25px ;border-top-right-radius: 25px;outline:none;padding:0 10px 0 0 !important" class="custom-select custom-select-lg mb-3" id="platformInp" onchange="searchSuggest('','',this.value);setTimeout(function(){gameDisplayer(0,searchArray)}, 50);">
+                           <option disabled selected="" value="">Platform</option>
+                           <option value="">All</option>
+                           <option>Android</option>
+                           <option>Arcade</option>
+                           <option>Dreamcast</option>
+                           <option>Dreamcast VMU</option>
+                           <option>Game Boy</option>
+                           <option>Game Boy Color</option>
+                           <option>Game.Com</option>
+                           <option>iPad</option>
+                           <option>iPhone</option>
+                           <option>Linux</option>
+                           <option>Lynx</option>
+                           <option>Macintosh</option>
+                           <option>NeoGeo Pocket Color</option>
+                           <option>Nintendo 3DS</option>
+                           <option>Nintendo 64</option>
+                           <option>Nintendo 64DD</option>
+                           <option>Nintendo DS</option>
+                           <option>PC</option>
+                           <option>PlayStation</option>
+                           <option>PlayStation 3</option>
+                           <option>PlayStation 4</option>
+                           <option>PlayStation Portable</option>
+                           <option>PlayStation Vita</option>
+                           <option>Saturn</option>
+                           <option>Wii</option>
+                           <option>Wii U</option>
+                           <option>WonderSwan</option>
+                           <option>Xbox 360</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+	  <!--Games Section-->
+      <div class="container" id="bodyContainer">
+         <div class="row" style="padding:5px;">
+            <div class="col-sm-10" style="padding:0px;">
+               <h3 style="display: inline">Games</h3>
+               <span style="float: right;margin-right: 2em;cursor:pointer;" >
+               <span>
+               <i class="fa fa-sort-amount-desc" style="vertical-align:middle;font-size:16px" title="Sort descending by score" onclick="sortDisplayer(0,searchArray,0);smoothScroll('bodyContainer');"  id="dsc_sign" ></i>
+               <i id="asc_sign" class="fa fa-sort-amount-asc" style="vertical-align:middle;display:none;font-size:16px" title="Sort ascending by score" onclick="sortDisplayer(0,searchArray,1);smoothScroll('bodyContainer');"></i>               
+               </span>
+               </span>
+               <hr>
+               <div class="container tile-container">
+			   <!-- Container of the game catalogue-->
+                  <small style="width: 100%;text-align: right;margin-right: 4.5em;"><em>Displaying <input type="number" onblur="perPage=this.value>5?parseInt(this.value):5;gameDisplayer(0,searchArray);" value="25" max=100 min=5 style="background: none;border: none;outline: none;border-bottom: 1px dotted;text-align: center;max-width: 2.5em;" id="recordNos"> results</em></small>
+                  <ul id="game-tile-container"  class="tile-box">
+                     <p> Please wait. Loading...</p>
+                     </li>					
+                  </ul>
+               </div>
+               <div class="col-12">
+                  <div class="center">
+                     <div class="pagination" id="paginationBar">
+                     </div>
+                  </div>
+               </div>
+            </div>
+			<!--Reccomended Section-->
+            <div class="col-sm-2" style="padding:0;">
+               <h3 style="display: inline">Recommended</h3>
+               <hr>
+               <div class="container tile-container">
+                  <small style="width: 100%;text-align: right;margin-right: 4.5em;">&nbsp;</small><br>
+                  <ul id="reco-tile-container" style="width: 100%" class="tile-box">
+                  </ul>
+               </div>
+            </div>
+			<!--Recently Viewed Section-->
+            <div class="col-sm-12" style="padding:0px;">
+               <h3 style="display: inline" id="recentTitle">Recently Viewed</h3>
+               <hr>
+               <div class="container tile-container">
+                  <ul id="recent-tile-container"  class="tile-box">				
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+	  <!--Footer Section-->
+      <div class="footer">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-sm-8 footerLogo">
+                  <img src="assets/img/logo.png" class="footerImg" alt="Games Arena">
+               </div>
+               <div class="col-sm-4 footerSocial">
+			   <!--Social Media Section-->
+                  <h5 style="color:white">Follow Us on</h5>
+                  <hr>
+                  <a href="" target="_blank" class="col-2 footer-social fa fa-facebook"></a>
+                  <a href="" target="_blank" class="col-2 footer-social fa fa-twitter"></a>
+                  <a href="" target="_blank" class="col-2 footer-social fa fa-linkedin"></a>
+                  <a href="" target="_blank" class="col-2 footer-social fa fa-youtube-play"></a>
+                  <a href="" target="_blank" class="col-2 footer-social fa fa-instagram"></a>
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-12 footerDetails">
+		 <!--User Aggrement Section-->
+            <small><a>All Rights Reserved | Games Arena</a></small>
+         </div>
+      </div>
+      <div style="bottom:0;right: 0;position: fixed;margin: 0 1em 0.6em 0;z-index: 100">
+         <button onclick="smoothScroll('header')" id="goTop" type="button" class="scrollup btn btn-info bmd-btn-fab" style="display:none;box-shadow: 2px 3px 10px grey;border-radius:50%">
+			<i class="fa fa-chevron-up" style="font-size: 2em"></i>
+         </button>
+      </div>
+      <!-- Including Bootstrap JS (with its jQuery dependency) so that dynamic components work -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+      <script src="assets/js/jquery.js"></script>      
+      <script src="assets/js/database.js"></script>
+      <script src="assets/js/history.js"></script>
+      <script src="assets/js/script.js"></script>
+   </body>
+</html>
